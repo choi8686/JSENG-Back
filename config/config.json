@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "jseng",
-    "host": "127.0.0.1",
+    "username": "jseng",
+    "password": "jseng0410",
+    "database": "jseng_database",
+    "host": "jseng-backend1.c78vher4uobm.ap-northeast-2.rds.amazonaws.com",
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "jseng",
-    "host": "127.0.0.1",
+    "username": "jseng",
+    "password": "jseng0410",
+    "database": "jseng_database",
+    "host": "jseng-backend1.c78vher4uobm.ap-northeast-2.rds.amazonaws.com",
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "jseng",
-    "host": "127.0.0.1",
+    "username": "jseng",
+    "password": "jseng0410",
+    "database": "jseng_database",
+    "host": "jseng-backend1.c78vher4uobm.ap-northeast-2.rds.amazonaws.com",
     "dialect": "mysql"
   }
 }
