@@ -24,25 +24,40 @@ const models = require("../models");
 //     })(req, res, next); //미들웨어 내의 미들웨어에는 (req, res, next) 첨부
 // })
 
-router.post("/login", async (req, res, next) => {
-    if (req.query.email && req.query.password) {
-        const result = await models.User.findOne({
+router.post("/signup", async (req, res, next) => {
+    const {
+        email,
+        password
+    } = req.body;
+    try {
 
-            where: {
-                email: req.query.email,
-                password: req.query.password,
-            }
+        await models.User.create({
+            email: email,
+            password: password,
+            createdAt: new Date(),
+            updatedAt: new Date()
         });
-        if (result) {
-
-            res.status(200).json(result) // ok
-        } else {
-            res.send(false);
-        }
-    } else {
-        console.log(res)
-        res.sendStatus(400);
+        return res.redirect("/"); //index로 보내버림
+    } catch (error) {
+        console.log(error);
     }
+})
+router.post("/login", async (req, res, next) => {
+
+    const result = await models.User.findOne({
+
+        where: {
+            email: req.query.email,
+            password: req.query.password,
+        }
+    });
+    if (result) {
+
+        res.status(200).json(result) // ok
+    } else {
+        res.send(false);
+    }
+
 });
 
 router.get('/list', (req, res) => {
