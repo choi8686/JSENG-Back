@@ -43,34 +43,23 @@ router.post("/signup", async (req, res, next) => {
         console.log(error);
     }
 })
-router.post("/login", async (req, res, next) => {
-
-    const result = await models.User.findOne({
-
-        where: {
-            email: req.query.email,
-            password: req.query.password,
+router.post('/login', async (req, res, next) => {
+    if (req.query.email && req.query.password) {
+        const result = await user.Model.findOne({
+            where: {
+                email: req.query.email,
+                password: req.query.password,
+            }
+        });
+        if (result) {
+            res.send(result);
+        } else {
+            res.send(false);
         }
-    });
-    if (result) {
-
-        res.status(200).json(result) // ok
     } else {
-        res.send(false);
+        res.sendStatus(400);
     }
-
 });
 
-router.get('/list', (req, res) => {
-    models.User.findAll({
 
-        }).then(result => {
-            if (result) {
-                res.status(200).json(result) // ok
-            }
-        })
-        .catch(error => {
-            res.status(500).send(error) //Server Error
-        })
-})
 module.exports = router;
