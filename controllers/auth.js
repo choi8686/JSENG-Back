@@ -44,11 +44,11 @@ router.post("/signup", async (req, res, next) => {
     }
 })
 router.post('/login', async (req, res, next) => {
-    if (req.query.email && req.query.password) {
-        const result = await user.Model.findOne({
+    if (req.body.email && req.body.password) {
+        const result = await models.User.findOne({
             where: {
-                email: req.query.email,
-                password: req.query.password,
+                email: req.body.email,
+                password: req.body.password,
             }
         });
         if (result) {
@@ -57,6 +57,7 @@ router.post('/login', async (req, res, next) => {
             res.send(false);
         }
     } else {
+        console.log(res)
         res.sendStatus(400);
     }
 });
