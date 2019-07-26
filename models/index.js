@@ -16,7 +16,7 @@ if (config.use_env_variable) {
 }
 
 db.User = require("./auth")(sequelize, Sequelize);
-
+db.Notice = require("./notice")(sequelize, Sequelize);
 fs
   .readdirSync(__dirname)
   .filter(file => {

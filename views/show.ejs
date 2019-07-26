@@ -1,0 +1,32 @@
+<head>
+    <title>hi</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+    <h1>table</h1>
+    <table border="2">
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>글쓴이</th>
+            <th>조회수</th>
+            <th>수정일</th>
+        </tr>
+        <%
+      for(var i = 0; i<rows.length; i++)
+      {
+      %>
+        <tr>
+            <td><%=rows[i].id%></td>
+            <td><%=rows[i].title%></td>
+            <td><%=rows[i].author%></td>
+            <td><%=rows[i].count%></td>
+            <td><%=rows[i].updatedAt%></td>
+        </tr>
+        <%
+      }
+      %>
+
+    </table>
+</body>
