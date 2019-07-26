@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const models = require("../models");
-
+var cors = require('cors');
+router.use(cors());
 
 // router.post('/login', isNotLoggedIn, (req, res, next) => {
 //     passport.authenticate('local', (authError, user) => {
@@ -31,13 +32,13 @@ router.post("/signup", async (req, res, next) => {
     } = req.body;
     try {
 
-        await models.User.create({
+        const result = await models.User.create({
             email: email,
             password: password,
             createdAt: new Date(),
             updatedAt: new Date()
         });
-        return res.redirect("/"); //index로 보내버림
+        res.send(result)
     } catch (error) {
         console.log(error);
     }

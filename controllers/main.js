@@ -1,6 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var models = require("../models");
+var cors = require('cors');
+router.use(cors());
+
+
+
 
 router.get('/notice', (req, res, next) => {
     res.redirect('/notice/1');
