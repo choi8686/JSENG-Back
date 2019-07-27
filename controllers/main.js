@@ -50,13 +50,14 @@ router.post('/notice', async (req, res, next) => {
 router.get('/notice/:id', async (req, res) => {
 
     try {
+        const {
+            noticeId
+        } = notice.id
         const getPostId = await models.Notice.findOne({
-            include: [{
-                model: models.Notice,
-                where: {
-                    id: req.params.id
-                }
-            }]
+
+            where: {
+                noticeId: req.params.id
+            }
 
         })
         res.status(200).json({
