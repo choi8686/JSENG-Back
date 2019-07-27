@@ -7,39 +7,41 @@ router.use(cors());
 
 
 
-router.get('/notice', (req, res, next) => {
-    res.redirect('/notice/1');
-});
-
-router.get('/notice/:page', async (req, res, next) => {
+router.get('/notice', async (req, res, next) => {
     try {
-        await models.Notice.findAll({
-
+        const result = await models.Notice.findAll({
+            limit: 10,
+            order: '"updatedAt" DESC'
         })
-        res.render('show')
+        res.status(200).json({
+            result
+        });
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.sendStatus(400);
     }
-})
+});
 
-router.post('/notice', (req, res, next) => {
-    let body = req.body;
 
-    models.Notice.create({
-            title: body.inputTitle,
-            author: body.inputWriter
+router.post('/notice/post', async (req, res, next) => {
+    const {
+        title,
+        contents
+    } = req.body;
+    try {
+        const createPost = models.Notice.create({
+            title: title,
+            contents: contents,
+            createdAt: new Date(),
+            updatedAt: new Date()
         })
-        .then(result => {
-            console.log(result)
-            res.status(200).json(result)
-            console.log("데이터 추가 완료");
-            res.redirect("/main/notice");
-        })
-        .catch(err => {
-            console.log(res)
-            console.log("데이터 추가 실패");
-        })
+        res.status(200).json({
+            createPost
+        });
+    } catch (error) {
+        console.error(error);
+        res.sendStatus(400);
+    }
 });
 
 module.exports = router;
