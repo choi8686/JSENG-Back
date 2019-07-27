@@ -10,8 +10,10 @@ router.use(cors());
 router.get('/notice', async (req, res, next) => {
     try {
         const result = await models.Notice.findAll({
-            limit: 10,
-            order: ["updatedAt", "DESC"]
+            order: [
+                ['updatedAt', 'DESC']
+            ]
+
         })
         res.status(200).json({
             result
