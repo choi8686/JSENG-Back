@@ -48,16 +48,14 @@ router.post('/notice', async (req, res, next) => {
 });
 
 router.get('/notice/:id', async (req, res) => {
-    const {
-        id
-    } = req.params.id;
+
     try {
         const getPostId = await models.Notice.findOne({
             where: {
-                id: id
+                id: req.params.id
             }
         })
-        res.status(200).json({
+        res.status(200).send({
             getPostId
         })
     } catch (error) {
