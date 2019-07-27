@@ -47,7 +47,7 @@ router.post('/notice', async (req, res, next) => {
     }
 });
 
-router.get('/notice/:id', async (req, res) => {
+router.get('/notice/getId/:id', async (req, res) => {
 
     try {
 
