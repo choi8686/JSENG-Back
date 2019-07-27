@@ -13,16 +13,13 @@ module.exports = (sequelize, DataTypes) => {
             },
             attach: {
                 type: DataTypes.STRING,
-                allowNull: false
+                allowNull: true
             },
             contents: {
                 type: DataTypes.STRING,
                 allowNull: false
             },
-            count: {
-                type: DataTypes.INTEGER,
-                allowNull: false
-            }
+
 
         }, {
             timestamps: true
