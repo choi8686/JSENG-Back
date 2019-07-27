@@ -50,7 +50,7 @@ router.post('/notice', async (req, res, next) => {
 router.get('/notice/:id', (req, res) => {
     const {
         id
-    } = req.params;
+    } = req.params.id;
     try {
         const getPostId = models.Notice.findOne({
             id: id
