@@ -89,4 +89,19 @@ router.put('/notice/:id', async (req, res) => {
         res.sendStatus(400);
     }
 })
+
+router.delete('/notice/:id', async (req, res) => {
+    try {
+        models.Notice.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+        res.redirect('/notice')
+    } catch (error) {
+        console.error(error);
+        res.sendStatus(400);
+    }
+
+})
 module.exports = router;
