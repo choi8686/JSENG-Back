@@ -11,7 +11,7 @@ router.get('/notice', async (req, res, next) => {
     try {
         const result = await models.Notice.findAll({
             limit: 10,
-            order: '"updatedAt" DESC'
+            order: ["updatedAt", "DESC"]
         })
         res.status(200).json({
             result
@@ -32,14 +32,13 @@ router.post('/notice/post', async (req, res, next) => {
         const createPost = models.Notice.create({
             title: title,
             contents: contents,
-            attach: attach,
             createdAt: new Date(),
             updatedAt: new Date()
         })
         res.status(200).json({
             createPost
         });
-        res.redirect('/notice')
+
     } catch (error) {
         console.error(error);
         res.sendStatus(400);
