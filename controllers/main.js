@@ -66,4 +66,27 @@ router.get('/notice/:id', async (req, res) => {
     }
 })
 
+router.put('/notice/:id', async (req, res) => {
+    const {
+        title,
+        contents
+    } = req.body
+    try {
+
+        const changePost = models.Notice.update({
+            title: title,
+            contents: contents
+        }, {
+            where: {
+                id: req.params.id
+            }
+        })
+        res.status(200).send({
+            changePost
+        })
+    } catch (error) {
+        console.error(error);
+        res.sendStatus(400);
+    }
+})
 module.exports = router;
