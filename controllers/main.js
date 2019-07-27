@@ -25,7 +25,7 @@ router.get('/notice', async (req, res, next) => {
 });
 
 
-router.post('/notice/post', async (req, res, next) => {
+router.post('/notice', async (req, res, next) => {
     const {
         title,
         contents
@@ -46,5 +46,22 @@ router.post('/notice/post', async (req, res, next) => {
         res.sendStatus(400);
     }
 });
+
+router.get('/notice/:id', (req, res) => {
+    const {
+        id
+    } = req.params;
+    try {
+        const getPostId = models.Notice.findOne({
+            id: id
+        })
+        res.status(200).json({
+            getPostId
+        })
+    } catch (error) {
+        console.error(error);
+        res.sendStatus(400);
+    }
+})
 
 module.exports = router;
