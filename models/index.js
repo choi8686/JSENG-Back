@@ -40,7 +40,7 @@ db.Notice.hasMany(db.attachNotice, {
   onDelete: "cascade"
 });
 db.attachNotice.belongsTo(db.Notice, {
-  foreignKey: "notice",
+  foreignKey: "noticeId",
   targetKey: "id",
   onDelete: "cascade"
 });
