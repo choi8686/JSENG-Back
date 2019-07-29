@@ -6,7 +6,7 @@ var sequelize = require("./models").sequelize;
 var indexRouter = require('./routes/index');
 var models = require("./models");
 var createError = require('http-errors');
-
+var cors = require('cors');
 var app = express();
 sequelize.sync(); //sequelize 연결
 
@@ -21,7 +21,7 @@ app.use(express.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(cors)
 app.use('/', indexRouter);
 
 

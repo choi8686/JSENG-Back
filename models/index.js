@@ -16,6 +16,8 @@ db.Sequelize = Sequelize;
 
 db.User = require("./auth")(sequelize, Sequelize);
 db.Notice = require("./notice")(sequelize, Sequelize);
+db.attachNotice = require("./attachNotice")(sequelize, Sequelize);
+
 fs
   .readdirSync(__dirname)
   .filter(file => {
@@ -32,6 +34,15 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
-
+db.Notice.hasMany(db.attachNotice, {
+  foreignKey: "noticeId",
+  sourceKey: "id",
+  onDelete: "cascade"
+});
+db.attachNotice.belongsTo(db.Notice, {
+  foreignKey: "notice",
+  targetKey: "id",
+  onDelete: "cascade"
+});
 
 module.exports = db;

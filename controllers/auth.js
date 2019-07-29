@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const models = require("../models");
-var cors = require('cors');
-router.use(cors());
+
 
 
 router.post('/login', async (req, res, next) => {
