@@ -29,7 +29,39 @@ const upload = multer({
 });
 
 router.post("/", upload.single("file_name"), (req, res) => {
-    body = req.file;
+
+    var fileUrl = req.file.location;
+    var noticeId = req.headers.noticeId;
+
+    models.attachNotice.findAll({
+            where: {
+                fileUrl: fileUrl
+            }
+        })
+        .then(result => {
+            // url이 존재한다면 아무것도 하지 않는다.
+            // 존재하지 않으면 row를 생성한다.
+            result.length ? res.status(200).json(req.file) : createFunc();
+        })
+        .catch(error => {
+            console.log(error);
+        });
+
+    var createFunc = () => {
+        models.attachNotice.create({
+                fileUrl: fileUrl,
+                noticeId: noticeId,
+                createdAt: Date(),
+                updatedAt: Date()
+            })
+            .then(result => {
+                console.log("success");
+                res.status(200).json(req.file);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
 });
 
 // router.get("/:teamId", async (req, res) => {
