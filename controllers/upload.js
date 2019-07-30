@@ -44,10 +44,8 @@ const upload = multer({
 // });
 
 router.post('', upload.single('file'), async (req, res, next) => {
-    const {
-        fileUrl,
-        noticeId
-    } = req.body;
+    const fileUrl = req.file.location;
+    const noticeId = req.headers.noticeId;
     try {
         const upload = models.attachNotice.create({
             fileUrl: fileUrl,
