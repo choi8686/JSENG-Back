@@ -22,50 +22,25 @@ const upload = multer({
             });
         },
         key: function (req, file, cb) {
-            let extension = path.extname(file.originalname);
-            let filename = path.filename(file.originalname, extension);
 
-            cb(null, `${filename}-${Date.now()}${extension}`);
+
+            cb(null, Date.now().toString());
         }
     })
 });
 
 router.post("", upload.single("file"), (req, res) => {
+    var upload = models.attachNotice.create({
+        fileUrl: fileUrl,
+        noticeId: noticeId,
+        createdAt: Date(),
+        updatedAt: Date()
+    })
     res.send("Successfully uploaded " + req.file.length + " files!")
-    // console.log(req.file);
+        .catch(error => {
+            console.log(error);
+        });
 
-    // var fileUrl = req.file.location;
-    // var noticeId = req.headers.noticeId;
-
-    // models.attachNotice.findAll({
-    //         where: {
-    //             fileUrl: fileUrl
-    //         }
-    //     })
-    //     .then(result => {
-    //         // url이 존재한다면 아무것도 하지 않는다.
-    //         // 존재하지 않으면 row를 생성한다.
-    //         result.length ? res.status(200).json(req.file) : createFunc();
-    //     })
-    //     .catch(error => {
-    //         console.log(error);
-    //     });
-
-    // var createFunc = () => {
-    //     models.attachNotice.create({
-    //             fileUrl: fileUrl,
-    //             noticeId: noticeId,
-    //             createdAt: Date(),
-    //             updatedAt: Date()
-    //         })
-    //         .then(result => {
-    //             console.log("success");
-    //             res.status(200).json(req.file);
-    //         })
-    //         .catch(error => {
-    //             console.log(error);
-    //         });
-    // };
 });
 
 // router.get("/:teamId", async (req, res) => {
