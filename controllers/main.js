@@ -50,7 +50,7 @@ router.get('/notice/:id', async (req, res) => {
 
     try {
 
-        const getPostId = await models.User.findOne({
+        const getPostId = await models.Notice.findOne({
             where: {
                 id: req.params.id
             }
