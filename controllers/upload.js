@@ -29,18 +29,40 @@ const upload = multer({
     })
 });
 
-router.post("", upload.single("file"), (req, res) => {
-    var upload = models.attachNotice.create({
-        fileUrl: fileUrl,
-        noticeId: noticeId,
-        createdAt: Date(),
-        updatedAt: Date()
-    })
-    res.send("Successfully uploaded " + req.file.length + " files!")
-        .catch(error => {
-            console.log(error);
+// router.post("", upload.single("file"), (req, res) => {
+//     var upload = models.attachNotice.create({
+//         fileUrl: fileUrl,
+//         noticeId: noticeId,
+//         createdAt: Date(),
+//         updatedAt: Date()
+//     })
+//     res.send("Successfully uploaded " + req.file.length + " files!")
+//         .catch(error => {
+//             console.log(error);
+//         });
+
+// });
+
+router.post('', upload.single('file'), async (req, res, next) => {
+    const {
+        fileUrl,
+        noticeId
+    } = req.body;
+    try {
+        const upload = models.attachNotice.create({
+            fileUrl: fileUrl,
+            noticeId: noticeId,
+            createdAt: new Date(),
+            updatedAt: new Date()
+        })
+        res.status(200).json({
+            upload
         });
 
+    } catch (error) {
+        console.error(error);
+        res.sendStatus(400);
+    }
 });
 
 // router.get("/:teamId", async (req, res) => {
