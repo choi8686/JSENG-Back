@@ -9,6 +9,10 @@ var models = require("../models");
 router.get('/notice', async (req, res, next) => {
     try {
         const result = await models.Notice.findAll({
+            include: [{
+                model: models.attachNotice,
+                attributes: ['fileUrl']
+            }],
             order: [
                 ['updatedAt', 'DESC']
             ]
