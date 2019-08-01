@@ -47,8 +47,8 @@ router.post("", (req, res) => {
     // setup email data with unicode symbols
     let mailOptions = {
         from: '"Nodemailer Contact" <this0924@email.com>', // sender address
-        to: "this0924@gmail.com", // list of receivers
-        subject: "Node Contact Request", // Subject line
+        to: "jseng@naver.com", // list of receivers
+        subject: "새로운 견적문의입니다", // Subject line
         text: "Hello world?", // plain text body
         html: output // html body
     };
