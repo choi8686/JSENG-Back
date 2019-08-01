@@ -2,22 +2,29 @@ const express = require("express");
 const router = express.Router();
 const nodemailer = require("nodemailer");
 
-app.post("", (req, res) => {
+router.post("", (req, res) => {
     const {
         name,
         company,
         email,
         phone,
+        fax,
+        product,
+        title,
         message
+
     } = req.body;
     const output = `
       <p>You have a new contact request</p>
       <h3>Contact Details</h3>
       <ul>  
-        <li>Name: ${name}</li>
-        <li>Company: ${company}</li>
-        <li>Email: ${email}</li>
-        <li>Phone: ${phone}</li>
+        <li>이름: ${name}</li>
+        <li>회사: ${company}</li>
+        <li>이메일: ${email}</li>
+        <li>연락처: ${phone}</li>
+        <li>팩스: ${fax}</li>
+        <li>상담제품: ${product}</li>
+        <li>제목: ${title}</li>
       </ul>
       <h3>Message</h3>
       <p>${message}</p>
@@ -25,6 +32,9 @@ app.post("", (req, res) => {
 
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
+        service: "gmail",
+        port: 8000,
+        secure: false,
         auth: {
             user: "", // generated ethereal user
             pass: "" // generated ethereal password
