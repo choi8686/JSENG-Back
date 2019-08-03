@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const nodemailer = require("nodemailer");
 
-router.post("", (req, res) => {
+router.post("/inquery", (req, res) => {
     const {
         name,
         company,
@@ -33,8 +33,10 @@ router.post("", (req, res) => {
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
         service: "gmail",
-        port: 8000,
+        host: 'smtp.gmail.com',
+        port: 587,
         secure: false,
+        requireTLS: true,
         auth: {
             user: "", // generated ethereal user
             pass: "" // generated ethereal password
@@ -43,6 +45,7 @@ router.post("", (req, res) => {
             rejectUnauthorized: false
         }
     });
+
 
     // setup email data with unicode symbols
     let mailOptions = {

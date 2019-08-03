@@ -9,6 +9,6 @@ const inqueryRouter = require("../controllers/inquery")
 router.use("/auth", authRouter);
 router.use("/main", mainRouter);
 router.use("/upload", fileUploadRouter);
-router.use("/inquery", inqueryRouter);
+router.use("/support", inqueryRouter);
 
 module.exports = router;

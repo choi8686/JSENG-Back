@@ -29,19 +29,6 @@ const upload = multer({
     })
 });
 
-// router.post("", upload.single("file"), (req, res) => {
-//     var upload = models.attachNotice.create({
-//         fileUrl: fileUrl,
-//         noticeId: noticeId,
-//         createdAt: Date(),
-//         updatedAt: Date()
-//     })
-//     res.send("Successfully uploaded " + req.file.length + " files!")
-//         .catch(error => {
-//             console.log(error);
-//         });
-
-// });
 
 router.post('', upload.single('file'), async (req, res, next) => {
     const fileUrl = req.file.location;
@@ -63,22 +50,5 @@ router.post('', upload.single('file'), async (req, res, next) => {
     }
 });
 
-// router.get("/:teamId", async (req, res) => {
-//     let id = req.params.teamId;
-//     models.Teamimage.findAll({
-//             include: [{
-//                 model: models.Team,
-//                 where: {
-//                     id: id
-//                 }
-//             }]
-//         })
-//         .then(result => {
-//             res.status(200).json(result);
-//         })
-//         .catch(error => {
-//             console.log(error);
-//         });
-// });
 
 module.exports = router;
