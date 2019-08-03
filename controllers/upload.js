@@ -14,7 +14,7 @@ const upload = multer({
     storage: multerS3({
         s3: s3,
 
-        bucket: "jseng-image/notice", //aws s3에 만든 버킷 이름
+        bucket: "jseng-image/newproduct", //aws s3에 만든 버킷 이름
         acl: "public-read", //s3 권한
         metadata(req, file, cb) {
             cb(null, {
@@ -31,12 +31,11 @@ const upload = multer({
 
 
 router.post('', upload.single('file'), async (req, res, next) => {
-    const fileUrl = req.file.location;
-    const noticeId = req.headers.noticeId;
+    const photoUrl = req.file.location;
+
     try {
-        const upload = models.attachNotice.create({
-            fileUrl: fileUrl,
-            noticeId: noticeId,
+        const upload = models.newProduct.create({
+            photoUrl: photoUrl,
             createdAt: new Date(),
             updatedAt: new Date()
         })
