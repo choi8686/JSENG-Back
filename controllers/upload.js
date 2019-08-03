@@ -30,7 +30,7 @@ const upload = multer({
 });
 
 
-router.post('', upload.single('file'), async (req, res, next) => {
+router.post('', upload.single('photo'), async (req, res, next) => {
     const photoUrl = req.file.location;
 
     try {
