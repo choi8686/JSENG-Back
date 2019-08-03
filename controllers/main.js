@@ -6,20 +6,23 @@ var models = require("../models");
 
 
 
-router.get('/notice', async (req, res, next) => {
+router.get("/notice", async (req, res, next) => {
+    const {
+        _start,
+        _end
+    } = req.query;
     try {
         const result = await models.Notice.findAll({
-            include: [{
-                model: models.attachNotice,
-                attributes: ["fileUrl"]
-            }],
             order: [
-                ['updatedAt', 'DESC']
+                ["id", "DESC"]
             ]
-
-        })
+        });
+        const resultPagination = {
+            page: result.slice(_start, _end),
+            total: result.length
+        };
         res.status(200).json({
-            result
+            resultPagination
         });
     } catch (error) {
         console.error(error);
