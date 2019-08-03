@@ -1,7 +1,33 @@
-var express = require('express');
-var router = express.Router();
-var models = require("../models");
+const express = require("express");
+const router = express.Router();
+const models = require("../models");
 
+const AWS = require("aws-sdk");
+const multer = require("multer");
+const multerS3 = require("multer-s3");
+
+AWS.config.loadFromPath(__dirname + "/../config/awsconfig.json");
+const s3 = new AWS.S3();
+const path = require("path");
+
+const upload = multer({
+    storage: multerS3({
+        s3: s3,
+
+        bucket: "jseng-image/notice", //aws s3에 만든 버킷 이름
+        acl: "public-read", //s3 권한
+        metadata(req, file, cb) {
+            cb(null, {
+                fieldName: file.fieldname
+            });
+        },
+        key: function (req, file, cb) {
+
+
+            cb(null, Date.now().toString());
+        }
+    })
+});
 
 
 
@@ -31,7 +57,8 @@ router.get("/notice", async (req, res, next) => {
 });
 
 
-router.post('/notice', async (req, res, next) => {
+router.post('/notice', upload.single('file'), async (req, res, next) => {
+    const fileUrl = req.file.location;
     const {
         title,
         contents
@@ -40,6 +67,7 @@ router.post('/notice', async (req, res, next) => {
         const createPost = await models.Notice.create({
             title: title,
             contents: contents,
+            fileUrl: fileUrl,
             createdAt: new Date(),
             updatedAt: new Date()
         })
@@ -73,6 +101,7 @@ router.get('/notice/:id', async (req, res) => {
 })
 
 router.put('/notice/:id', async (req, res) => {
+    const fileUrl = req.file.location;
     const {
         title,
         contents
@@ -81,7 +110,8 @@ router.put('/notice/:id', async (req, res) => {
 
         const changePost = await models.Notice.update({
             title: title,
-            contents: contents
+            contents: contents,
+            fileUrl: fileUrl
         }, {
             where: {
                 id: req.params.id

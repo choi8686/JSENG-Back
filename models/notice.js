@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false
             },
+            fileUrl: {
+                type: DataTypes.STRING,
+                allowNull: true
+            }
         }, {
             charset: 'utf8',
             collate: 'utf8_unicode_ci',
