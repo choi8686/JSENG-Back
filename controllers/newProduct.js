@@ -32,13 +32,13 @@ const upload = multer({
 router.post('', upload.single('photo'), async (req, res, next) => {
     const photoUrl = req.file.location;
     try {
-        const upload = models.newProduct.create({
+        const photoUrl = models.newProduct.create({
             photoUrl: photoUrl,
             createdAt: new Date(),
             updatedAt: new Date()
         })
         res.status(200).json({
-            upload
+            photoUrl
         });
 
     } catch (error) {
