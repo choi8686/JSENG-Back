@@ -58,6 +58,7 @@ router.get('', async (req, res, next) => {
         res.status(200).json({
             getImage
         });
+        console.log(getImage)
     } catch (error) {
         console.error(error);
         res.sendStatus(400);
