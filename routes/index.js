@@ -9,6 +9,6 @@ const newProductRouter = require("../controllers/newProduct")
 router.use("/auth", authRouter);
 router.use("/main", mainRouter);
 router.use("/support", inqueryRouter);
-router.use("/newProduct", newProductRouter);
+router.use("/newproduct", newProductRouter);
 
 module.exports = router;
