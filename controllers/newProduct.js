@@ -28,17 +28,23 @@ const upload = multer({
 });
 
 
-router.post('/post/img', upload.single('img'), (req, res) => {
+router.post('', upload.single('img'), async (req, res) => {
+    const photoUrl = req.file.location;
     try {
-        console.log("req.file: ", req.file); // 테스트 => req.file.location에 이미지 링크(s3-server)가 담겨있음 
+        console.log("req.file: ", req.file);
 
-        let payLoad = {
-            url: req.file.location
-        };
-        response(res, 200, payLoad);
-    } catch (err) {
-        console.log(err);
-        response(res, 500, "서버 에러")
+        const imgUpload = models.newProduct.create({
+            photoUrl: photoUrl,
+            createdAt: new Date(),
+            updatedAt: new Date()
+        })
+        res.status(200).json({
+            imgUpload
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.sendStatus(400);
     }
 });
 
