@@ -50,7 +50,7 @@ router.post('', upload.single('img'), async (req, res) => {
 
 router.get('', async (req, res, next) => {
     try {
-        const getImage = models.newProduct.findAll({
+        const getImage = await models.newProduct.findAll({
             order: [
                 ["id", "DESC"]
             ]
