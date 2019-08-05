@@ -33,13 +33,13 @@ router.post('', upload.single('img'), async (req, res) => {
     try {
         console.log("req.file: ", req.file);
 
-        const imgUpload = models.newProduct.create({
+        const img = models.newProduct.create({
             photoUrl: photoUrl,
             createdAt: new Date(),
             updatedAt: new Date()
         })
         res.status(200).json({
-            imgUpload
+            img
         });
 
     } catch (error) {
