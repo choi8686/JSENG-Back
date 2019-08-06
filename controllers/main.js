@@ -15,18 +15,16 @@ const upload = multer({
         s3: s3,
 
         bucket: "jseng-image/notice", //aws s3에 만든 버킷 이름
+        contentType: multerS3.AUTO_CONTENT_TYPE, // 자동으로 콘텐츠 타입 세팅
         acl: "public-read", //s3 권한
-        metadata(req, file, cb) {
-            cb(null, {
-                fieldName: file.fieldname
-            });
-        },
         key: function (req, file, cb) {
-
-
-            cb(null, Date.now().toString());
+            console.log(file)
+            cb(null, file.originalname);
         }
-    })
+    }),
+    limits: {
+        fileSize: 5 * 1024 * 1024
+    }
 });
 
 
