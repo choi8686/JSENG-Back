@@ -84,4 +84,40 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+router.put('/newproduct/:id', async (req, res) => {
+    const imgUrl = req.file.location;
+
+    try {
+
+        const changeImg = await models.newProduct.update({
+            imgUrl: imgUrl
+        }, {
+            where: {
+                id: req.params.id
+            }
+        })
+        res.status(200).send({
+            changeImg
+        })
+    } catch (error) {
+        console.error(error);
+        res.sendStatus(400);
+    }
+})
+
+router.delete('/newproduct/:id', async (req, res) => {
+    try {
+        await models.newProduct.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+        res.redirect('/newProduct')
+    } catch (error) {
+        console.error(error);
+        res.sendStatus(400);
+    }
+
+})
+
 module.exports = router;
