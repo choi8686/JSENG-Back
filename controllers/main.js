@@ -56,10 +56,11 @@ router.get("/notice", async (req, res, next) => {
 
 
 router.post('/notice', upload.single('file'), async (req, res, next) => {
-    const fileUrl = req.file.location;
-    if (fileUrl === undefined) {
-        fileUrl = null
+    if (await req.file.location === undefined) {
+        req.file.location = null
     }
+    const fileUrl = req.file.location;
+
     const {
         title,
         contents
