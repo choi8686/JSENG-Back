@@ -57,7 +57,7 @@ router.get("/notice", async (req, res, next) => {
 
 router.post('/notice', upload.single('file'), async (req, res, next) => {
     let fileUrl;
-    if (await req.file === undefined) {
+    if (await req.file === undefined) { //첨부파일이 없을 경우의 예외처리
         fileUrl = null
     } else {
         fileUrl = req.file.location;

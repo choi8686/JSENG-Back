@@ -58,7 +58,7 @@ router.get("", async (req, res, next) => {
     try {
         const getImage = await models.newProduct.findAll({
             order: [
-                ["id", "DESC"]
+                ["id", "DESC"] //id 역순으로 정렬
             ]
         });
         const resultPagination = {
