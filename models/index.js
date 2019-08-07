@@ -23,7 +23,6 @@ db.Sequelize = Sequelize;
 
 db.User = require("./auth")(sequelize, Sequelize);
 db.Notice = require("./notice")(sequelize, Sequelize);
-db.attachNotice = require("./attachNotice")(sequelize, Sequelize);
 db.newProduct = require("./newProduct")(sequelize, Sequelize);
 
 fs
@@ -42,15 +41,5 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
-db.Notice.hasMany(db.attachNotice, {
-  foreignKey: "noticeId",
-  sourceKey: "id",
-  onDelete: "cascade"
-});
-db.attachNotice.belongsTo(db.Notice, {
-  foreignKey: "noticeId",
-  targetKey: "id",
-  onDelete: "cascade"
-});
 
 module.exports = db;
