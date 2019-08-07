@@ -59,8 +59,10 @@ router.post('/notice', upload.single('file'), async (req, res, next) => {
     let fileUrl;
     if (await req.file === undefined) {
         fileUrl = null
+    } else {
+        fileUrl = req.file.location;
+
     }
-    fileUrl = req.file.location;
 
     const {
         title,
