@@ -30,10 +30,12 @@ const upload = multer({
 
 router.post('', upload.single('img'), async (req, res) => {
     const photoUrl = req.file.location;
+    const title = req.body.title
     try {
         console.log("req.file: ", req.file);
 
         const imgUpload = await models.newProduct.create({
+            title: title,
             photoUrl: photoUrl,
             createdAt: new Date(),
             updatedAt: new Date()
