@@ -57,23 +57,15 @@ router.get("/notice", async (req, res, next) => {
 
 router.post('/notice', upload.single('file'), async (req, res, next) => {
     const fileUrl = req.file.location;
+    if (fileUrl === undefined) {
+        fileUrl = null
+    }
     const {
         title,
         contents
     } = req.body;
     try {
-        if (fileUrl === undefined) {
-            const createWithOutFileUrl = await models.Notice.create({
-                title: title,
-                contents: contents,
-                fileUrl: null,
-                createdAt: new Date(),
-                updatedAt: new Date()
-            })
-            res.status(200).json({
-                createWithOutFileUrl
-            });
-        }
+
 
         const createPost = await models.Notice.create({
             title: title,
