@@ -33,7 +33,7 @@ router.post('', upload.single('img'), async (req, res) => {
     try {
         console.log("req.file: ", req.file);
 
-        const imgUpload = models.newProduct.create({
+        const imgUpload = await models.newProduct.create({
             photoUrl: photoUrl,
             createdAt: new Date(),
             updatedAt: new Date()
@@ -48,22 +48,29 @@ router.post('', upload.single('img'), async (req, res) => {
     }
 });
 
-router.get('', async (req, res, next) => {
+router.get("", async (req, res, next) => {
+    const {
+        _start,
+        _end
+    } = req.query;
     try {
         const getImage = await models.newProduct.findAll({
             order: [
                 ["id", "DESC"]
             ]
-        })
-        res.status(200).json({
-            getImage
         });
-        console.log(getImage)
+        const resultPagination = {
+            page: getImage.slice(_start, _end),
+            total: getImage.length
+        };
+        res.status(200).json({
+            resultPagination
+        });
     } catch (error) {
         console.error(error);
         res.sendStatus(400);
     }
-})
+});
 
 router.get('/:id', async (req, res) => {
 
