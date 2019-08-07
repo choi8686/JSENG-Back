@@ -70,6 +70,9 @@ router.post('/notice', upload.single('file'), async (req, res, next) => {
                 createdAt: new Date(),
                 updatedAt: new Date()
             })
+            res.status(200).json({
+                createWithOutFileUrl
+            });
         }
 
         const createPost = await models.Notice.create({
