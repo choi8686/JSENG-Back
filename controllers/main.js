@@ -107,14 +107,17 @@ router.get('/notice/:id', async (req, res) => {
     }
 })
 
-router.put('/notice/:id', async (req, res) => { //update
-    const fileUrl = req.file.location;
+router.put("/notice/:id", upload.single("file"), async (req, res, next) => {
+    let fileUrl;
     const {
         title,
         contents
-    } = req.body
+    } = req.body;
+    const baseUrl = req.body.baseUrl;​
+    // 제목,내용만 수정하는 case로 인한 로직추가
+    // 새로운 파일요청이 들어오면 ? 새로운 파일의 경로를 fileUrl 지정 : 그게 아니면 기존 fileUrl 유지
+    (await req.file) ? (fileUrl = req.file.location) : (fileUrl = baseUrl);​
     try {
-
         const changePost = await models.Notice.update({
             title: title,
             contents: contents,
@@ -123,15 +126,15 @@ router.put('/notice/:id', async (req, res) => { //update
             where: {
                 id: req.params.id
             }
-        })
+        });
         res.status(200).send({
             changePost
-        })
+        });
     } catch (error) {
         console.error(error);
         res.sendStatus(400);
     }
-})
+});
 
 router.delete('/notice/:id', async (req, res) => {
     try {
@@ -140,7 +143,7 @@ router.delete('/notice/:id', async (req, res) => {
                 id: req.params.id
             }
         })
-        res.redirect('/notice')
+        res.status(200).json(req.params.id)
     } catch (error) {
         console.error(error);
         res.sendStatus(400);
