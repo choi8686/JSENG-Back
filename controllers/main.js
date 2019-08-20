@@ -55,7 +55,7 @@ router.get("/notice", async (req, res, next) => {
 });
 
 
-router.post('/notice', upload.single('file'), async (req, res, next) => {
+router.post('/notice', upload.array('file', 5), async (req, res, next) => {
     let fileUrl;
     if (await req.file === undefined) { //첨부파일이 없을 경우의 예외처리
         fileUrl = null
@@ -74,7 +74,6 @@ router.post('/notice', upload.single('file'), async (req, res, next) => {
         const createPost = await models.Notice.create({
             title: title,
             contents: contents,
-            fileUrl: fileUrl,
             createdAt: new Date(),
             updatedAt: new Date()
         })
