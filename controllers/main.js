@@ -70,19 +70,17 @@ router.post('/notice', upload.array('file', 5), async (req, res, next) => {
     } = req.body;
     try {
 
-        const createUrl = await models.noticeFile.create({
-            fileUrl: req.files.location
-        })
-
         const createPost = await models.Notice.create({
             title: title,
             contents: contents,
             createdAt: new Date(),
             updatedAt: new Date()
         })
+        await models.noticeFile.create({
+            fileUrl: req.files.location
+        })
         res.status(200).json({
-            createPost,
-            createUrl
+
         });
 
     } catch (error) {
