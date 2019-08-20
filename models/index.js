@@ -26,16 +26,8 @@ db.Notice = require("./notice")(sequelize, Sequelize);
 db.newProduct = require("./newProduct")(sequelize, Sequelize);
 db.noticeFile = require("./noticeFile")(sequelize, Sequelize);
 
-db.Notice.hasMany(db.noticeFile, {
-  foreignKey: "noticeId",
-  sourceKey: "id",
-  onDelete: "cascade"
-});
-db.noticeFile.belongsTo(db.Notice, {
-  foreignKey: "noticeId",
-  targetKey: "id",
-  onDelete: "cascade"
-});
+
+
 
 fs
   .readdirSync(__dirname)
