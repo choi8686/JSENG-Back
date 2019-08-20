@@ -20,5 +20,14 @@ module.exports = (sequelize, DataTypes) => {
             timestamps: true
         }
     );
+
+    notice.associate = function (models) {
+        notice.hasMany(models.noticeFile, {
+            foreignKey: "noticeId",
+            sourceKey: "id",
+            onDelete: "cascade"
+        });
+    };
+
     return notice;
 };

@@ -14,5 +14,15 @@ module.exports = (sequelize, DataTypes) => {
             timestamps: true
         }
     );
+    noticeFile.associate = function (models) {
+        noticeFile.belongsTo(models.notice, {
+            foreignKey: "noticeId",
+            sourceKey: "id",
+            onDelete: "cascade"
+        });
+    };
+
+
+
     return noticeFile;
 };
