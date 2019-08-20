@@ -57,10 +57,10 @@ router.get("/notice", async (req, res, next) => {
 
 router.post('/notice', upload.array('file', 5), async (req, res, next) => {
     let fileUrl;
-    if (await req.file === undefined) { //첨부파일이 없을 경우의 예외처리
+    if (await req.files === undefined) { //첨부파일이 없을 경우의 예외처리
         fileUrl = null
     } else {
-        fileUrl = req.file.location;
+        fileUrl = req.files.location;
 
     }
 
@@ -70,6 +70,9 @@ router.post('/notice', upload.array('file', 5), async (req, res, next) => {
     } = req.body;
     try {
 
+        const createUrl = await models.noticeFile.create({
+            fileUrl: req.files.location
+        })
 
         const createPost = await models.Notice.create({
             title: title,
@@ -78,7 +81,8 @@ router.post('/notice', upload.array('file', 5), async (req, res, next) => {
             updatedAt: new Date()
         })
         res.status(200).json({
-            createPost
+            createPost,
+            createUrl
         });
 
     } catch (error) {
