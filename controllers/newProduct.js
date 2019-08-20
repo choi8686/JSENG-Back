@@ -104,9 +104,9 @@ router.put('/:id', upload.single('img'), async (req, res) => {
     // 사진타이틀만 수정하는 case로 인한 로직추가
     // 새로운 사진요청이 들어오면 ? 새로운 사진의 경로를 photoUrl로 지정 : 그게 아니면 기존 baseUrl 유지
     if (await req.file) {
-        fileUrl = req.file.location
+        photoUrl = req.file.location
     } else {
-        fileUrl = baseUrl
+        photoUrl = baseUrl
     }
 
     try {
