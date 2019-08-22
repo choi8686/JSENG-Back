@@ -127,7 +127,7 @@ router.put('/:id', upload.single('img'), async (req, res) => {
     }
 });
 
-router.delete('/newproduct/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try {
         await models.newProduct.destroy({
             where: {
