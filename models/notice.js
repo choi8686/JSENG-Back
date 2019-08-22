@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
             contents: {
                 type: DataTypes.STRING,
                 allowNull: false
+            },
+            fileUrl: {
+                type: DataTypes.STRING,
+                allowNull: true
             }
         }, {
             charset: 'utf8',
@@ -20,14 +24,5 @@ module.exports = (sequelize, DataTypes) => {
             timestamps: true
         }
     );
-
-    notice.associate = function (models) {
-        notice.hasMany(models.noticeFile, {
-            foreignKey: "noticeId",
-            sourceKey: "id",
-            onDelete: "cascade"
-        });
-    };
-
     return notice;
 };

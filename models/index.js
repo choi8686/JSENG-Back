@@ -24,10 +24,6 @@ db.Sequelize = Sequelize;
 db.User = require("./auth")(sequelize, Sequelize);
 db.Notice = require("./notice")(sequelize, Sequelize);
 db.newProduct = require("./newProduct")(sequelize, Sequelize);
-db.noticeFile = require("./noticeFile")(sequelize, Sequelize);
-
-
-
 
 fs
   .readdirSync(__dirname)

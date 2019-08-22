@@ -93,22 +93,13 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-router.put('/:id', upload.single('img'), async (req, res) => {
+router.put("/:id", upload.single("img"), async (req, res) => {
     let photoUrl;
-    const {
-        title,
-        baseUrl
-    } = req.body
-
-
+    const title = req.body.title;
+    const baseUrl = req.body.baseUrl;​
     // 사진타이틀만 수정하는 case로 인한 로직추가
     // 새로운 사진요청이 들어오면 ? 새로운 사진의 경로를 photoUrl로 지정 : 그게 아니면 기존 baseUrl 유지
-    if (await req.file) {
-        photoUrl = req.file.location
-    } else {
-        photoUrl = baseUrl
-    }
-
+    (await req.file) ? (photoUrl = req.file.location) : (photoUrl = baseUrl);​
     try {
         const changeImg = await models.newProduct.update({
             title: title,

@@ -55,12 +55,12 @@ router.get("/notice", async (req, res, next) => {
 });
 
 
-router.post('/notice', upload.array('file', 5), async (req, res, next) => {
+router.post('/notice', upload.single('file'), async (req, res, next) => {
     let fileUrl;
-    if (await req.files === undefined) { //첨부파일이 없을 경우의 예외처리
+    if (await req.file === undefined) { //첨부파일이 없을 경우의 예외처리
         fileUrl = null
     } else {
-        fileUrl = req.files.location;
+        fileUrl = req.file.location;
 
     }
 
@@ -70,17 +70,16 @@ router.post('/notice', upload.array('file', 5), async (req, res, next) => {
     } = req.body;
     try {
 
+
         const createPost = await models.Notice.create({
             title: title,
             contents: contents,
+            fileUrl: fileUrl,
             createdAt: new Date(),
             updatedAt: new Date()
         })
-        await models.noticeFile.create({
-            fileUrl: req.files.location
-        })
         res.status(200).json({
-
+            createPost
         });
 
     } catch (error) {
@@ -112,18 +111,12 @@ router.put("/notice/:id", upload.single("file"), async (req, res, next) => {
     let fileUrl;
     const {
         title,
-        contents,
-        baseUrl
+        contents
     } = req.body;
-
+    const baseUrl = req.body.baseUrl;​
     // 제목,내용만 수정하는 case로 인한 로직추가
     // 새로운 파일요청이 들어오면 ? 새로운 파일의 경로를 fileUrl 지정 : 그게 아니면 기존 fileUrl 유지
-    if (await req.file) {
-        fileUrl = req.file.location
-    } else {
-        fileUrl = baseUrl
-    }
-
+    (await req.file) ? (fileUrl = req.file.location) : (fileUrl = baseUrl);​
     try {
         const changePost = await models.Notice.update({
             title: title,
