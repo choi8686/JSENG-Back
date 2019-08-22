@@ -111,12 +111,18 @@ router.put("/notice/:id", upload.single("file"), async (req, res, next) => {
     let fileUrl;
     const {
         title,
-        contents
+        contents,
+        baseUrl
     } = req.body;
-    const baseUrl = req.body.baseUrl;​
+
     // 제목,내용만 수정하는 case로 인한 로직추가
     // 새로운 파일요청이 들어오면 ? 새로운 파일의 경로를 fileUrl 지정 : 그게 아니면 기존 fileUrl 유지
-    (await req.file) ? (fileUrl = req.file.location) : (fileUrl = baseUrl);​
+    if (await req.file) {
+        fileUrl = req.file.location
+    } else {
+        fileUrl = baseUrl
+    }
+
     try {
         const changePost = await models.Notice.update({
             title: title,
