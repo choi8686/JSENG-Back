@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
             password: {
                 type: DataTypes.STRING,
                 allowNull: false
+            },
+            avatarname: {
+                type: DataTypes.STRING,
+                allowNull: true
             }
         }, {
             charset: 'utf8',

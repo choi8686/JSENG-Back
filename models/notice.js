@@ -17,6 +17,10 @@ module.exports = (sequelize, DataTypes) => {
             fileUrl: {
                 type: DataTypes.STRING,
                 allowNull: true
+            },
+            sex: {
+                type: DataTypes.STRING,
+                allowNull: false
             }
         }, {
             charset: 'utf8',

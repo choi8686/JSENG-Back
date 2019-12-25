@@ -8,9 +8,7 @@ var models = require("./models");
 var createError = require('http-errors');
 var cors = require('cors');
 var app = express();
-sequelize.sync({
-  alter: true
-}); //sequelize 연결
+sequelize.sync(); //sequelize 연결
 
 // view engine setup (안씀)
 app.set('views', path.join(__dirname, 'views'));
